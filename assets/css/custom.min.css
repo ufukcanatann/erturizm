@@ -1,0 +1,634 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 1);
+  margin: 0;
+  padding: 0;
+  background: #4A4A4A;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.header {
+  height: 50px;
+  width: 420px;
+  background: rgba(66, 66, 66, 1);
+  text-align: center;
+  position: relative;
+  z-index: 100;
+}
+
+.header h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.left,
+.right {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  top: 50%;
+  margin-top: -7.5px;
+  cursor: pointer;
+}
+
+.left {
+  border-width: 7.5px 10px 7.5px 0;
+  border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
+  left: 20px;
+}
+
+.right {
+  border-width: 7.5px 0 7.5px 10px;
+  border-color: transparent transparent transparent rgba(160, 159, 160, 1);
+  right: 20px;
+}
+
+.month {
+  /*overflow: hidden;*/
+  opacity: 0;
+}
+
+.month.new {
+  -webkit-animation: fadeIn 1s ease-out;
+  opacity: 1;
+}
+
+.month.in.next {
+  animation: moveFromTopFadeMonth .4s ease-out;
+  opacity: 1;
+}
+
+.month.out.next {
+  animation: moveToTopFadeMonth .4s ease-in;
+  opacity: 1;
+}
+
+.month.in.prev {
+  animation: moveFromBottomFadeMonth .4s ease-out;
+  opacity: 1;
+}
+
+.month.out.prev {
+  animation: moveToBottomFadeMonth .4s ease-in;
+  opacity: 1;
+}
+
+.day {
+  display: inline-block;
+  width: 60px;
+  padding: 10px;
+  text-align: center;
+  vertical-align: top;
+  cursor: pointer;
+  background: #4A4A4A;
+  position: relative;
+  z-index: 100;
+}
+
+.day.other {
+  color: rgba(255, 255, 255, .3);
+}
+
+.blue {
+  background: rgba(156, 202, 235, 1);
+}
+
+.orange {
+  background: rgba(247, 167, 0, 1);
+}
+
+.green {
+  background: rgba(153, 198, 109, 1);
+}
+
+.yellow {
+  background: rgba(249, 233, 0, 1);
+}
+
+.details {
+  position: relative;
+  width: 420px;
+  height: 75px;
+  background: rgba(164, 164, 164, 1);
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+.details.in {
+  animation: moveFromTopFade .5s ease both;
+}
+
+.details.out {
+  animation: moveToTopFade .5s ease both;
+}
+
+.arrow {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  margin-left: -2px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent rgba(164, 164, 164, 1) transparent;
+  transition: all 0.7s ease;
+}
+
+.events {
+  height: 75px;
+  padding: 7px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.events.in {
+  animation: fadeIn .3s ease both;
+}
+
+.events.in {
+  animation-delay: .3s;
+}
+
+.details.out .events {
+  animation: fadeOutShink .4s ease both;
+}
+
+.events.out {
+  animation: fadeOut .3s ease both;
+}
+
+.event {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: .5px;
+  padding: 2px 16px;
+  vertical-align: top;
+}
+
+.event.empty {
+  color: #eee;
+}
+
+.event span {
+  display: inline-block;
+  padding: 0 0 0 7px;
+}
+
+.legend {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background: rgba(60, 60, 60, 1);
+  line-height: 30px;
+
+}
+
+.entry {
+  position: relative;
+  padding: 0 0 0 25px;
+  font-size: 13px;
+  display: inline-block;
+  line-height: 30px;
+  background: transparent;
+}
+
+.entry:after {
+  position: absolute;
+  content: '';
+  height: 5px;
+  width: 5px;
+  top: 12px;
+  left: 14px;
+}
+
+.entry.blue:after {
+  background: rgba(156, 202, 235, 1);
+}
+
+.entry.orange:after {
+  background: rgba(247, 167, 0, 1);
+}
+
+.entry.green:after {
+  background: rgba(153, 198, 109, 1);
+}
+
+.entry.yellow:after {
+  background: rgba(249, 233, 0, 1);
+}
+
+/* Animations are cool!  */
+
+@keyframes moveFromTopFade {
+  from {
+    height: 0px;
+    margin-top: 0px;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes moveToTopFade {
+  to {
+    height: 0px;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes moveToTopFadeMonth {
+  to {
+    opacity: 0;
+    -moz-transform: translateY(-30%);
+  }
+}
+
+@keyframes moveFromTopFadeMonth {
+  from {
+    opacity: 0;
+    -moz-transform: translateY(30%);
+  }
+}
+
+@keyframes moveToBottomFadeMonth {
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(30%);
+  }
+}
+
+@keyframes moveFromBottomFadeMonth {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-30%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutShink {
+  to {
+    opacity: 0;
+    padding: 0px;
+    height: 0px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .mobile-close {
+    display: none;
+  }
+}
+
+/* jssor slider loading skin spin css */
+
+@keyframes jssorl-009-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/*jssor slider bullet skin 132 css*/
+
+/* ----------------------------------------------------------------
+	Typography
+-----------------------------------------------------------------*/
+a:not(.btn):not(.badge):hover,
+a:not(.btn):not(.badge):focus,
+a:not(.btn):not(.badge):active {
+  color: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+	Accordion
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+	Blockquotes
+-----------------------------------------------------------------*/
+.blockquote {
+  border-left: 3px solid #7341B4;
+}
+
+/* ----------------------------------------------------------------------
+	Buttons
+-------------------------------------------------------------------------*/
+button.btn,
+.btn:not(.close):not(.mfp-close),
+a.btn:not([href]):not([tabindex]) {
+  background-color: #7341B4;
+  border-color: #7341B4;
+}
+
+button.btn:hover,
+button.btn:focus,
+button.btn:not(:disabled):not(.disabled):active,
+button.btn:not(:disabled):not(.disabled).active,
+.btn:not(.close):not(.mfp-close):hover,
+.btn:not(.close):not(.mfp-close):focus,
+.btn:not(.close):not(.mfp-close):not(:disabled):not(.disabled):active,
+.btn:not(.close):not(.mfp-close):not(:disabled):not(.disabled).active,
+a.btn:not([href]):not([tabindex]):hover,
+a.btn:not([href]):not([tabindex]):focus,
+a.btn:not([href]):not([tabindex]):not(:disabled):not(.disabled):active,
+a.btn:not([href]):not([tabindex]):not(:disabled):not(.disabled).active {
+  background-color: #7341B4;
+  border-color: #7341B4;
+}
+
+/* ----------------------------------------------------------------------
+    call-to-action (call to action)
+-------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+Carousels & Slider
+-----------------------------------------------------------------*/
+.inspiro-slider .flickity-button:hover {
+  background-color: #7341B4;
+}
+
+.carousel .flickity-button:hover {
+  background-color: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+    Dropcat & Highlight
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------
+Forms
+-------------------------------------------------------------------------*/
+.form-control:focus,
+input:focus,
+select:focus {
+  border-color: #7341B4;
+}
+
+/* ----------------------------------------------------------------------
+	Headings
+-------------------------------------------------------------------------*/
+.heading-text.heading-section>h2:before {
+  background-color: #7341B4;
+}
+
+/* ----------------------------------------------------------------------
+	Icon Box
+-------------------------------------------------------------------------*/
+.icon-box.effect.dark .icon i:after {
+  box-shado: 0 0 0 3px #7341B4;
+}
+
+.icon-box.effect.dark .icon i:hover,
+.icon-box.effect.dark:hover .icon i {
+  background-color: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+Lables & Badgets
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------
+	Light Box
+-------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------
+	Lists & Bullet Lists
+-------------------------------------------------------------------------*/
+
+.list-group-item.active {
+  background-color: #7341B4;
+  border: #7341B4;
+}
+
+/* ----------------------------------------------------------------------
+	Pagination & Pager
+-------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------
+	Pricing Table
+-------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------
+	Progress Bar
+-------------------------------------------------------------------------*/
+.p-progress-bar,
+.progress-bar {
+  background-color: #7341B4;
+}
+
+/*--------------------------------------------------------
+     Tabs
+---------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+	Date picker
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+	Date range picker
+-----------------------------------------------------------------*/
+
+
+input.dates:after {
+  background: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+	Bootstrap Switch
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+	Ion Range Sliders
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+	Blog
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+	Grid Filter
+-----------------------------------------------------------------*/
+.grid-filter li:hover a,
+.grid-filter li.active a {
+  background-color: #7341B4;
+}
+
+/*------------------------------------------------------
+     Comments
+------------------------------------------------------*/
+
+/*------------------------------------------------------
+     Extras
+------------------------------------------------------*/
+
+.nav-link {
+  color: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+Scroll top
+-----------------------------------------------------------------*/
+#scrollTop:after,
+#scrollTop:before {
+  background-color: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+    Forum
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+    Header
+-----------------------------------------------------------------*/
+#header {
+  /* ----------------------------------------------------------------
+Main Menu
+-----------------------------------------------------------------*/
+}
+
+#header #mainMenu nav>ul>li.hover-active>a,
+#header #mainMenu nav>ul>li.hover-active>span,
+#header #mainMenu nav>ul>li.current>a,
+#header #mainMenu nav>ul>li.current>span,
+#header #mainMenu nav>ul>li:hover>a,
+#header #mainMenu nav>ul>li:hover>span,
+#header #mainMenu nav>ul>li:focus>a,
+#header #mainMenu nav>ul>li:focus>span {
+  color: #7341B4;
+}
+
+#header #mainMenu nav>ul>li .dropdown-menu>li>a:focus,
+#header #mainMenu nav>ul>li .dropdown-menu>li>a:hover,
+#header #mainMenu nav>ul>li .dropdown-menu>li>a:active,
+#header #mainMenu nav>ul>li .dropdown-menu>li>span:focus,
+#header #mainMenu nav>ul>li .dropdown-menu>li>span:hover,
+#header #mainMenu nav>ul>li .dropdown-menu>li>span:active,
+#header #mainMenu nav>ul>li .dropdown-menu>li [class*="col-"]>ul>li>a:focus,
+#header #mainMenu nav>ul>li .dropdown-menu>li [class*="col-"]>ul>li>a:hover,
+#header #mainMenu nav>ul>li .dropdown-menu>li [class*="col-"]>ul>li>a:active {
+  color: #7341B4;
+}
+
+#header #mainMenu nav>ul>li .dropdown-menu>li.current>a,
+#header #mainMenu nav>ul>li .dropdown-menu>li.current>span,
+#header #mainMenu nav>ul>li .dropdown-menu>li:hover>a,
+#header #mainMenu nav>ul>li .dropdown-menu>li:hover>span,
+#header #mainMenu nav>ul>li .dropdown-menu>li:focus>a,
+#header #mainMenu nav>ul>li .dropdown-menu>li:focus>span,
+#header #mainMenu nav>ul>li .dropdown-menu>li:active>a,
+#header #mainMenu nav>ul>li .dropdown-menu>li:active>span,
+#header #mainMenu nav>ul>li .dropdown-menu>li.hover-active>a,
+#header #mainMenu nav>ul>li .dropdown-menu>li.hover-active>span {
+  color: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+Dots Menu
+-----------------------------------------------------------------*/
+#dotsMenu ul li:hover {
+  background-color: #7341B4;
+}
+
+#dotsMenu ul li.current {
+  background-color: #7341B4;
+}
+
+#dotsMenu ul li a:hover:before,
+#dotsMenu ul li a.active:before {
+  background-color: #7341B4;
+}
+
+/*Menu Dark*/
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li .dropdown-menu>li>a:hover,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li .dropdown-menu>li>span:hover,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li .dropdown-menu>li [class*="col-"]>ul>li>a:hover {
+  color: #7341B4;
+}
+
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li.current>a,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li.current>span,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li:hover>a,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li:hover>span,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li:focus>a,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li:focus>span,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li.hover-active>a,
+#mainMenu.dark:not(.light):not(.menu-rounded) nav>ul>li.hover-active>span {
+  color: #7341B4;
+}
+
+.page-menu nav>ul>li:hover>a,
+.page-menu nav>ul>li.active>a {
+  color: #7341B4;
+}
+
+@media (max-width: 1024px) {
+
+  
+  .page-menu.inverted nav>ul>li:hover>a,
+  .page-menu.inverted nav>ul>li.active>a {
+    color: #7341B4;
+  }
+}
+
+#search .btn-search-close {
+  background-color: #7341B4;
+}
+
+/* ----------------------------------------------------------------
+Topbar
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+Helpers
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+Portfolio
+-----------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+	Widgets
+-----------------------------------------------------------------*/
+.widget-tweeter li a,
+.widget-twitter li a {
+  color: #7341B4;
+}
+
+.tags a:hover,
+.tags a:focus,
+.tags a:active,
+.tags a.active {
+  background-color: #7341B4;
+  border-color: #7341B4;
+}

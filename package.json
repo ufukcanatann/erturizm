@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "postcss-cli": "^11.0.0"
+  },
+  "scripts": {
+    "build:css:plugins": "postcss assets/css/plugins.css -o assets/css/plugins.min.css",
+    "build:css:style": "postcss assets/css/style.css -o assets/css/style.min.css",
+    "build:css:custom": "postcss assets/css/custom.css -o assets/css/custom.min.css",
+    "build:css": "npm run build:css:plugins && npm run build:css:style && npm run build:css:custom"
+  }
+}
